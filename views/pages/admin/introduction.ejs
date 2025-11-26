@@ -1,0 +1,25 @@
+<% block('title', 'Introduction' ) %>
+    <div class="admin-login-content col-md-6 offset-md-3 text-light pt-5">
+        <div class="login-form pt-5 pb-5 dark-grey m-3 px-4 rounded-3">
+            <h2 class="text-center mb-5 text-primary">Introduction
+            </h2>
+            <form action="/atul-admin/introduction/<%= data._id %>?_method=PUT" method="post">
+                <div class="mb-3">
+                    <!-- <label for="introduction" class="form-label">Enter your position</label> -->
+                    <!-- <div rows="10" id="editor" cols="30" type="text" class="form-control" id="introduction"
+                    name="introduction" placeholder="Write your introduction here!" aria-describedby="introduction">
+                    <%= data.introduction %>
+                </div> -->
+                    <div id="editor" class="form-control" style="min-height: 200px;">
+                        <%- data.introduction %>
+                    </div>
+
+                    <!-- Hidden input where Quill content will be saved -->
+                    <input type="hidden" name="introduction" id="introduction">
+                </div>
+                <div class="div text-center">
+                    <button type="submit" class="btn btn-primary text-center">Update</button>
+                </div>
+            </form>
+        </div>
+    </div>

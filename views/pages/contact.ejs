@@ -1,0 +1,26 @@
+<% layout("./layouts/boilerplate.ejs")%>
+    <% block('title', 'Contact' ) %>
+        <div class="contact-section text-light d-flex justify-content-center align-items-center min-vh-100">
+            <div class="content-contact dark-grey p-5 rounded-3">
+                <h3 class="text-center"><span class="text-primary fst-italic">Connect</span> with me! </h3>
+                <hr class="border border-primary border-2">
+                <div class="contact-details">
+                    <h5>Name : <span class="text-primary fst-italic">
+                            <%= result.contact.name%>
+                        </span></h5>
+                    <h5>Contact : <span class="text-primary fst-italic"><a href="tel:<%= result.contact.contact%>">
+                                <%= result.contact.contact%>
+                            </a></span>
+                    </h5>
+                    <h5>Email : <span class="text-primary fst-italic"><a href="mailto:<%= result.contact.email%>">
+                                <%= result.contact.email%>
+                            </a></span></h5>
+                    <div class="social-media-div text-center mt-3">
+                        <a href="<%=result.socialmedia.instagram%>"><i class="fa-brands fa-instagram fs-2"></i></a>
+                        <a href="<%=result.socialmedia.linkedin%>"><i class="fa-brands fa-linkedin fs-2"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <%- include("./bottom.ejs") %>

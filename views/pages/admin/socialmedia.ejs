@@ -1,0 +1,37 @@
+<% block('title', 'Social Media' ) %>
+    <div class="admin-login-content col-md-6 offset-md-3 text-light pt-5">
+        <div class="login-form pt-5 pb-5 dark-grey m-3 px-4 rounded-3">
+            <h2 class="text-center mb-5 text-primary">Social Media
+            </h2>
+            <form action="/atul-admin/socialmedia/<%= data._id %>?_method=PUT" method="post">
+                <div class="mb-3">
+                    <label for="instagram" class="form-label">Instagram</label>
+                    <input type="text" class="form-control" id="instagram" name="instagram"
+                        placeholder="Enter instagram account" value="<%= data.socialmedia.instagram%>">
+
+                </div>
+                <div class="mb-3">
+                    <label for="linkedin" class="form-label">LinkedIn</label>
+                    <input type="text" class="form-control" name="linkedin" id="linkedin"
+                        placeholder="Enter linkedin account" value="<%= data.socialmedia.linkedin%>">
+
+                </div>
+                <div class=" mb-3">
+                    <label for="github" class="form-label">Github</label>
+                    <input type="text" class="form-control" id="github" name="github" placeholder="Enter github account"
+                        value="<%= data.socialmedia.github%>">
+
+                </div>
+
+                <div class=" mb-3">
+                    <label for="facebook" class="form-label">Facebook</label>
+                    <input type="text" class="form-control" id="facebook" name="facebook" placeholder="Enter fb account"
+                        aria-describedby="emailHelp" value="<%= data.socialmedia.facebook%>">
+
+                </div>
+                <div class=" mb-3 text-center">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>

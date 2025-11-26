@@ -1,0 +1,84 @@
+<div class="dashboard-details-content col-md-10 offset-md-1 text-light pt-2">
+    <h2 class="text-center">Portfolio
+    </h2>
+    <div class="portfoliodetails pt-3 pb-3 dark-grey m-2 px-4 rounded-3 table-responsive">
+        <h4>Position : <%= data.position%>
+        </h4>
+        <p>
+        <h5>Description :</h5> <%- data.introduction%>
+            </p>
+            <p>
+            <h4>Experience</h4>
+            <ul>
+                <% for(exp of data.experience){%>
+                    <li>
+                        <p class="row">
+                            <span class="col-3">
+                                <%= exp.company%>
+                            </span>
+                            <span class="col-9">
+                                <%- exp.description%>
+                            </span>
+                        </p>
+                    </li>
+                    <% }%>
+            </ul>
+            </p>
+            <p>
+            <h4>Education</h4>
+            <ul>
+                <% for(edu of data.education){%>
+                    <li>
+                        <p class="row">
+                            <span class="col-3">
+                                <%= edu.insitute%>
+                            </span>
+                            <span class="col-6">
+                                <%= edu.course%>
+                            </span>
+                            <span class="col-3">
+                                <%= edu.grade%>
+                            </span>
+                        </p>
+                    </li>
+                    <% }%>
+            </ul>
+            </p>
+            <p>
+            <h4>Projects</h4>
+            <ul>
+                <% for(project of data.projects){%>
+                    <li>
+                        <p class="row">
+                            <span class="col-3">
+                                <%= project.projectName%>
+                            </span>
+                            <span class="col-9">
+                                <%- project.description%>
+                            </span>
+                        </p>
+                        <p>
+                        <ul class="d-flex flex-wrap text-primary">
+                            <%for(tech of project.technologies){%>
+                                <li class="me-4">
+                                    <%=tech%>
+                                </li>
+                                <%}%>
+                        </ul>
+                        </p>
+                    </li>
+                    <% }%>
+            </ul>
+            </p>
+
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('#myTable').DataTable({
+            responsive: true
+        });
+    });
+
+</script>

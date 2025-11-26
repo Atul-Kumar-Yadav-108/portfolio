@@ -1,0 +1,59 @@
+<% layout("./layouts/boilerplate.ejs") %>
+    <div class="dashboard-section text-light px-2">
+        <!-- <h1>Dashboard Section</h1> -->
+        <div class="row w-100">
+            <div class="col-lg-2 col-md-4 vh-md-95">
+                <!-- Toggle button for small screens -->
+                <button class="btn btn-dark d-md-none mb-3" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#sidebarContent" aria-controls="sidebarContent" aria-expanded="false"
+                    aria-label="Toggle sidebar">
+                    <i class="fa-solid fa-list text-light"></i>
+                </button>
+
+                <!-- Sidebar content -->
+                <div class="collapse d-md-block vh-md-95 bg-dark text-light" id="sidebarContent">
+                    <%- include("./leftpanel.ejs") %>
+                </div>
+            </div>
+
+            <div class="col-md-8 col-lg-10 shadow">
+
+                <%if(url=='position'){%>
+                    <%- include("./positionHeading.ejs",{data}) %>
+                        <%}else if(url=='introduction' ){%>
+                            <%- include("./introduction.ejs",{data}) %>
+                                <%}else if(url=='experience' ){%>
+                                    <%- include("./experience.ejs",{data}) %>
+                                        <%}else if(url=='education' ){%>
+                                            <%- include("./education.ejs",{data}) %>
+                                                <%}else if(url=='projects' ){%>
+                                                    <%- include("./projects.ejs",{data}) %>
+                                                        <%}else if(url=='contact' ){%>
+                                                            <%- include("./contact.ejs",{data}) %>
+                                                                <%}else if(url=='socialmedia' ){%>
+                                                                    <%- include("./socialmedia.ejs",{data}) %>
+                                                                        <%}else if(url=='certifications' ){%>
+                                                                            <%- include("./certifications.ejs",{data})
+                                                                                %>
+                                                                                <%}else if(url=='academicprojects' ){%>
+                                                                                    <%- include("./academicprojects.ejs",{data})
+                                                                                        %>
+                                                                                        <%}else if(url=='skillexpertise'
+                                                                                            ){%>
+                                                                                            <%- include("./skillexpertise.ejs",{data})
+                                                                                                %>
+                                                                                                <%}else
+                                                                                                    if(url=='profileimage'
+                                                                                                    ){%>
+                                                                                                    <%- include("./profileimg.ejs",{data})
+                                                                                                        %>
+
+                                                                                                        <%}else{%>
+                                                                                                            <% block('title', 'Dashboard'
+                                                                                                                ) %>
+                                                                                                                <%- include("./dashboard-details.ejs",{data})
+                                                                                                                    %>
+                                                                                                                    <%}%>
+            </div>
+        </div>
+    </div>

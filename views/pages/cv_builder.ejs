@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="hi">
+
+<head>
+    <meta charset="UTF-8">
+    <title>CV - <%= user.contact.name %>
+    </title>
+    <style>
+        /* यहाँ अपना CUSTOM CSS डालें */
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.0;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 80%;
+            margin: auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            background-color: #f4f4f4;
+            padding: 10px;
+        }
+
+        .section {
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            color: #0056b3;
+            border-bottom: 2px solid #0056b3;
+            padding-bottom: 5px;
+        }
+
+        .experience-item,
+        .education-item,
+        .project-item {
+            margin-top: 10px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        p {
+            font-size: 14px;
+            margin: 2px 0;
+            line-height: 1.3;
+        }
+    </style>
+</head>
+
+<body>
+
+    <% function formatMonthYear(dateString) { const d=new Date(dateString); const month=d.toLocaleString('default', {
+        month: 'short' }); const year=d.getFullYear(); return `${month}/${year}`; } %>
+        <div class="cvcontainer">
+            <div class="header">
+                <h1>
+                    <%= user.contact.name %>
+                </h1>
+                <h4>
+                    <%= user.position %>
+                </h4>
+                <p>
+                    <%= user.contact.address %>
+                        | <%= user.contact.email %> | <%= user.contact.contact %>
+                </p>
+                <p>
+                    LinkedIn : <%= user.socialmedia.linkedin %>
+                </p>
+            </div>
+
+            <div class="summarysection">
+                <h2>Summary</h2>
+                <p>
+                    <%- user.introduction || "" %>
+                </p>
+            </div>
+
+            <div class="section">
+                <h2>Work Experience</h2>
+                <% user.experience.forEach(function(exp) { %>
+                    <div class="experience-item">
+                        <div>
+                            <strong>
+                                <%= exp.designation %>
+                            </strong> | <strong>
+                                <%= exp.company %>
+                            </strong>
+                        </div>
+                        <div>
+                            [<%= formatMonthYear(exp.DOJ) %> - <%= exp.DOL ? formatMonthYear(exp.DOL) : "present" %>]
+                        </div>
+
+                    </div>
+
+                    <p>
+                        <%- exp.description || "" %>
+                    </p>
+                    <% }); %>
+            </div>
+            <div class=" section">
+                <h2>Projects</h2>
+                <% user.projects.forEach(function(project) { %>
+                    <div class="project-item">
+                        <div><strong>
+                                <%= project.projectName %>
+                            </strong> | <strong>
+                                ( <%= project.technologies %> )
+                            </strong></div>
+
+                    </div>
+                    <p>
+                        <%- project.description || "" %>
+                    </p>
+                    <% }); %>
+            </div>
+
+            <div class="section">
+                <h2>Skills and Certifications</h2>
+                <p>
+                    <strong>Languages : </strong><%- user.skillexpertise.languages || '' %>
+                </p>
+                <p>
+                    <strong>Web technologies : </strong><%- user.skillexpertise.webtech || '' %>
+                </p>
+                <p>
+                    <strong>Framework and Library : </strong><%- user.skillexpertise.frameworkLibrary || '' %>
+                </p>
+                <p>
+                    <strong>Databases : </strong><%- user.skillexpertise.databases || '' %>
+                </p>
+                <p>
+                    <strong>Tools and Plateforms : </strong><%- user.skillexpertise.toolsplateforms || '' %>
+                </p>
+                <p>
+                    <strong>Professional skills : </strong><%- user.skillexpertise.professionalskills || '' %>
+                </p>
+            </div>
+
+            <div class="section">
+                <h2>Education</h2>
+                <% user.education.forEach(function(edu) { %>
+                    <div class="education-item">
+                        <strong>
+                            <%= edu.course %>
+                        </strong>,
+                        <span>
+                            [<%= edu.from.getFullYear() %> - <%= edu.to.getFullYear()%>]
+                        </span>
+                    </div>
+                    <%= edu.insitute %>
+                        <p>
+                            Grade/ CGPA : <%= edu.grade %>
+                        </p>
+
+                        <% }); %>
+            </div>
+            <div class="section">
+                <h2>Certifications</h2>
+                <p>
+                    <%- user.certifications || '' %>
+                </p>
+            </div>
+
+        </div>
+</body>
+
+</html>

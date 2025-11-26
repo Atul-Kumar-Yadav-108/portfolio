@@ -1,0 +1,307 @@
+<% block('title', 'Experience' ) %>
+    <div class="admin-login-content col-md-10 offset-md-1 text-light pt-5">
+        <div class="login-form pt-3 pb-3 dark-grey m-2 px-4 rounded-3 table-responsive">
+            <h2 class="text-center mb-5 text-primary">Experience
+            </h2><!-- Button trigger modal -->
+            <div class="add-experience d-flex justify-content-end">
+                <button type="button" class="btn btn-primary " data-bs-toggle="modal" data-bs-target="#addExperience">
+                    Add +
+                </button>
+            </div>
+
+            <table id="myTable" class="table display">
+                <thead>
+                    <tr>
+                        <th>Sno</th>
+                        <th>Organization</th>
+                        <th>Designation</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% let idx=0; for( exp of data.experience){%>
+                        <tr>
+                            <td>
+                                <%= idx+=1%>
+                            </td>
+                            <td>
+                                <%=exp.company%>
+                            </td>
+                            <td>
+                                <%= exp.designation%>
+                            </td>
+                            <td><button type="button" data-expid="<%= exp._id%>" data-protid="<%= data._id%>"
+                                    class="btn btn-warning viewBtn" data-bs-toggle="modal"
+                                    data-bs-target="#viewExperience">
+                                    View
+                                </button> <button type="button" data-expid="<%= exp._id%>" data-protid="<%= data._id%>"
+                                    class="btn btn-primary editBtn" data-bs-toggle="modal"
+                                    data-bs-target="#editExperience">
+                                    Edit
+                                </button> <button type="button" data-expid="<%= exp._id%>" data-protid="<%= data._id%>"
+                                    class="btn btn-danger deleteBtn" data-bs-toggle="modal"
+                                    data-bs-target="#deleteExperience">
+                                    delete
+                                </button></td>
+                        </tr>
+                        <%}%>
+                </tbody>
+            </table>
+        </div>
+
+
+        <!-- create Modal -->
+        <div class="modal fade text-dark" id="addExperience" data-bs-backdrop="static" data-bs-keyboard="false"
+            tabindex="-1" aria-labelledby="addExperienceLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="addExperienceLabel">Add Experience</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="add-experience-form">
+                            <form action="/atul-admin/experience/<%= data._id%>" method="post">
+                                <div class="mb-3">
+                                    <label for="company" class="form-label">Company</label>
+                                    <input type="text" class="form-control" id="company" name="company"
+                                        placeholder="Company name">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="designation" class="form-label">Designation</label>
+                                    <input type="text" class="form-control" id="designation" name="designation"
+                                        placeholder="Designation">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="description" class="form-label">Description</label>
+                                    <div id="editorDescription" class="form-control" style="min-height: 100px;">
+                                    </div>
+
+                                    <!-- Hidden input where Quill content will be saved -->
+                                    <input type="hidden" name="description" id="description">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="doj" class="form-label">Date of Joining</label>
+                                    <input type="date" class="form-control" id="doj" name="doj">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="dol" class="form-label">Date of Leaving</label>
+                                    <input type="date" class="form-control" id="dol" name="dol">
+                                </div>
+                                <!-- <button type="submit" class="btn btn-primary">Submit</button> -->
+
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- edit Modal -->
+        <div class="modal fade text-dark" id="editExperience" data-bs-backdrop="static" data-bs-keyboard="false"
+            tabindex="-1" aria-labelledby="editExperienceLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="editExperienceLabel">Edit Experience</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="add-experience-form">
+                            <form action="/atul-admin/experience/<%= data._id%>?_method=PUT" method="post">
+                                <input type="hidden" name="portfolioId" value="<%= data._id %>">
+                                <input type="hidden" name="expId" id="expId">
+
+                                <div class="mb-3">
+                                    <label for="editCompany" class="form-label">Company</label>
+                                    <input type="text" class="form-control" id="editCompany" name="company"
+                                        placeholder="Company name">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="editDesignation" class="form-label">Designation</label>
+                                    <input type="text" class="form-control" id="editDesignation" name="designation"
+                                        placeholder="Designation">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="editDescription" class="form-label">Description</label>
+                                    <div id="editorEditDescription" class="form-control" style="min-height: 100px;">
+                                    </div>
+
+                                    <!-- Hidden input where Quill content will be saved -->
+                                    <input type="hidden" name="description" id="editDescription">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="editDoj" class="form-label">Date of Joining</label>
+                                    <input type="date" class="form-control" id="editDoj" name="doj">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="editDol" class="form-label">Date of Leaving</label>
+                                    <input type="date" class="form-control" id="editDol" name="dol">
+                                </div>
+                                <!-- <button type="submit" class="btn btn-primary">Submit</button> -->
+
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Update</button>
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- view Modal -->
+        <div class="modal fade text-dark" id="viewExperience" data-bs-backdrop="static" data-bs-keyboard="false"
+            tabindex="-1" aria-labelledby="viewExperienceLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="viewExperienceLabel">Details</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="add-experience-form">
+                            <div class="company-name row">
+                                <h6 class="col-4">Company Name</h6>
+                                <p class="col-8"><b id="mCompany"></b></p>
+                            </div>
+
+                            <div class="designation row">
+                                <h6 class="col-4">Designation</h6>
+                                <p class="col-8"><b id="mDesignation"></b></p>
+                            </div>
+                            <div class="description row">
+                                <h6 class="col-4">Description</h6>
+                                <p class="col-8"><b id="mDescription"></b></p>
+                            </div>
+
+                            <div class="DOJ row">
+                                <h6 class="col-4">Date of Joining</h6>
+                                <p class="col-8"><b id="mDOJ"></b></p>
+                            </div>
+
+                            <div class="DOL row">
+                                <h6 class="col-4">Date of Leaving</h6>
+                                <p class="col-8"><b id="mDOL"></b></p>
+                            </div>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- delete  -->
+        <div class="modal fade text-dark" id="deleteExperience" data-bs-backdrop="static" data-bs-keyboard="false"
+            tabindex="-1" aria-labelledby="deleteExperienceLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="deleteExperienceLabel"><i class="fa-solid fa-triangle-exclamation"
+                                style="color: #080808;"></i> Delete?</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <h5>Are you sure to delete it?</h5>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <form id="deleteForm" method="post">
+                                <button type="submit" class="btn btn-primary">Yes</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            $(document).ready(function () {
+                $('#myTable').DataTable({
+                    responsive: true
+                });
+            });
+
+            // view
+            $(document).on("click", ".viewBtn", async function () {
+                let protId = $(this).data("protid");
+                let expId = $(this).data("expid");
+
+                try {
+                    const res = await fetch(`/atul-admin/portfolio/${protId}/experience/${expId}`);
+                    const data = await res.json();
+                    console.log(data);
+
+                    $("#mCompany").text(data.company);
+                    $("#mDesignation").text(data.designation);
+                    $("#mDescription").html(data.description);
+                    $("#mDOJ").text(new Date(data.DOJ).toDateString());
+                    $("#mDOL").text(new Date(data.DOL).toDateString());
+
+                } catch (error) {
+                    console.error("Error:", error);
+                }
+            });
+
+            function formatDate(date) {
+                const d = new Date(date);
+                return d.toISOString().split("T")[0];
+            }
+
+            // edit
+            $(document).on("click", ".editBtn", async function () {
+                let protId = $(this).data("protid");
+                let expId = $(this).data("expid");
+
+                try {
+                    const res = await fetch(`/atul-admin/experience/edit/${protId}/${expId}`);
+                    const data = await res.json();
+                    console.log(data);
+
+                    $("#expId").val(data._id);
+                    $("#editCompany").val(data.company);
+                    $("#editDesignation ").val(data.designation);
+                    quillEdit.root.innerHTML = data.description;
+                    $("#editDoj").val(formatDate(data.DOJ));
+                    $("#editDol").val(formatDate(data.DOL));
+
+
+                } catch (error) {
+                    console.error("Error:", error);
+                }
+            })
+
+
+
+
+            // delete
+            $(document).on("click", ".deleteBtn", function () {
+                const protId = $(this).data("protid");
+                const expId = $(this).data("expid");
+
+                const url = `/atul-admin/experience/delete/${protId}/${expId}`;
+
+                $("#deleteForm").attr("action", url);
+            });
+
+            var quill = new Quill('#editorDescription', {
+                theme: 'snow'
+            });
+            $("form").on("submit", function () {
+                $("#description").val(quill.root.innerHTML);
+            });
+            var quillEdit = new Quill('#editorEditDescription', {
+                theme: 'snow'
+            });
+            $("form").on("submit", function () {
+                $("#editDescription").val(quillEdit.root.innerHTML);
+            });
+
+        </script>

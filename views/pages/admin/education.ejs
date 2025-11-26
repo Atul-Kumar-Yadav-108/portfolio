@@ -1,0 +1,268 @@
+<% block('title', 'Education' ) %>
+    <div class="admin-login-content col-md-10 offset-md-1 text-light pt-5">
+        <div class="login-form pt-3 pb-3 dark-grey m-2 px-4 rounded-3">
+            <h2 class="text-center mb-5 text-primary">Education
+            </h2>
+            <div class="d-flex justify-content-end">
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addEducation">
+                    Add +
+                </button>
+            </div>
+            <table id="myTable" class="display">
+                <thead>
+                    <tr>
+                        <th>Sno</th>
+                        <th>Institute</th>
+                        <th>Course</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% let idx=0; for(edu of data.education){%>
+                        <tr>
+                            <td>
+                                <%= idx+=1%>
+                            </td>
+                            <td>
+                                <%= edu.insitute%>
+                            </td>
+                            <td>
+                                <%= edu.course%>
+                            </td>
+                            <td><button type="button" class="btn btn-warning viewBtn" data-protid="<%= data._id%>"
+                                    data-eduid="<%= edu._id%>" data-bs-toggle="modal" data-bs-target="#viewEducation">
+                                    View
+                                </button> <button type="button" class="btn btn-primary editBtn"
+                                    data-protid="<%= data._id%>" data-eduid="<%= edu._id%>" data-bs-toggle="modal"
+                                    data-bs-target="#editEducation">
+                                    Edit
+                                </button> <button type="button" data-eduid="<%= edu._id%>" data-protid="<%= data._id%>"
+                                    class="btn btn-danger deleteBtn" data-bs-toggle="modal"
+                                    data-bs-target="#deleteEducation">
+                                    delete
+                                </button></td>
+                        </tr>
+                        <%}%>
+
+                </tbody>
+            </table>
+        </div>
+
+
+        <!-- add education -->
+        <!-- Modal -->
+        <div class="modal fade text-dark" id="addEducation" tabindex="-1" aria-labelledby="addEducationLabel"
+            aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="addEducationLabel">Add Education</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="/atul-admin/education/<%= data._id%>" method="post">
+                            <div class="mb-3">
+                                <label for="insitute" class="form-label">Institute</label>
+                                <input type="text" class="form-control" name="insitute" id="insitute"
+                                    aria-describedby="emailHelp" placeholder="Institute">
+                            </div>
+                            <div class="mb-3">
+                                <label for="course" class="form-label">Course</label>
+                                <input type="text" class="form-control" name="course" id="course"
+                                    aria-describedby="emailHelp" placeholder="course">
+                            </div>
+                            <div class="mb-3">
+                                <label for="grade" class="form-label">CGPA/Grade</label>
+                                <input type="text" class="form-control" name="grade" id="grade"
+                                    aria-describedby="emailHelp" placeholder="grade">
+                            </div>
+                            <div class="mb-3">
+                                <label for="from" class="form-label">From</label>
+                                <input type="date" class="form-control" name="from" id="from"
+                                    aria-describedby="emailHelp" placeholder="From">
+                            </div>
+                            <div class="mb-3">
+                                <label for="to" class="form-label">To</label>
+                                <input type="date" class="form-control" name="to" id="to" aria-describedby="emailHelp"
+                                    placeholder="To">
+                            </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- edit model -->
+        <div class="modal fade text-dark" id="editEducation" tabindex="-1" aria-labelledby="editEducationLabel"
+            aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="editEducationLabel">Edit Education</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="/atul-admin/education/<%= data._id%>?_method=PUT" method="post">
+                            <input type="hidden" name="eduid" id="editid">
+                            <input type="hidden" name="portfolioId" value="<%= data._id %>">
+                            <div class="mb-3">
+                                <label for="editinsitute" class="form-label">Institute</label>
+                                <input type="text" class="form-control" name="insitute" id="editinsitute"
+                                    aria-describedby="emailHelp" placeholder="Institute">
+                            </div>
+                            <div class="mb-3">
+                                <label for="editcourse" class="form-label">Course</label>
+                                <input type="text" class="form-control" name="course" id="editcourse"
+                                    aria-describedby="emailHelp" placeholder="course">
+                            </div>
+                            <div class="mb-3">
+                                <label for="editgrade" class="form-label">CGPA/Grade</label>
+                                <input type="text" class="form-control" name="grade" id="editgrade"
+                                    aria-describedby="emailHelp" placeholder="grade">
+                            </div>
+                            <div class="mb-3">
+                                <label for="editfrom" class="form-label">From</label>
+                                <input type="date" class="form-control" name="from" id="editfrom"
+                                    aria-describedby="emailHelp" placeholder="From">
+                            </div>
+                            <div class="mb-3">
+                                <label for="editto" class="form-label">To</label>
+                                <input type="date" class="form-control" name="to" id="editto"
+                                    aria-describedby="emailHelp" placeholder="To">
+                            </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Update</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- view education  -->
+        <div class="modal fade text-dark" id="viewEducation" data-bs-backdrop="static" data-bs-keyboard="false"
+            tabindex="-1" aria-labelledby="viewEducationLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="viewEducationLabel"> Details</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="add-experience-form">
+                            <div class="institute row">
+                                <h6 class="col-4">Institute</h6>
+                                <p class="col-8"><b id="mInstitute"></b></p>
+                            </div>
+
+                            <div class="course row">
+                                <h6 class="col-4">Course</h6>
+                                <p class="col-8"><b id="mCourse"></b></p>
+                            </div>
+                            <div class="grade row">
+                                <h6 class="col-4">Grade/CGPA</h6>
+                                <p class="col-8"><b id="mGrade"></b></p>
+                            </div>
+
+                            <div class="start row">
+                                <h6 class="col-4">Start</h6>
+                                <p class="col-8"><b id="mStart"></b></p>
+                            </div>
+
+                            <div class="edn row">
+                                <h6 class="col-4">End</h6>
+                                <p class="col-8"><b id="mEnd"></b></p>
+                            </div>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- delete  -->
+        <div class="modal fade text-dark" id="deleteEducation" data-bs-backdrop="static" data-bs-keyboard="false"
+            tabindex="-1" aria-labelledby="deleteEducationLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="deleteEducationLabel"><i class="fa-solid fa-triangle-exclamation"
+                                style="color: #080808;"></i> Delete?</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <h5>Are you sure to delete it?</h5>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <form id="deleteForm" method="post">
+                                <button type="submit" class="btn btn-primary">Yes</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function () {
+            $('#myTable').DataTable({
+                responsive: true
+            });
+        });
+
+        $(document).on("click", ".deleteBtn", function () {
+            const protid = $(this).data("protid");
+            const eduid = $(this).data("eduid");
+            console.log(protid, eduid);
+
+            const url = `/atul-admin/education/delete/${protid}/${eduid}`;
+
+            $("#deleteForm").attr("action", url);
+        });
+
+        // view education
+        $(document).on("click", ".viewBtn", async function () {
+            const protid = $(this).data("protid");
+            const eduid = $(this).data("eduid");
+            console.log(protid, eduid);
+            const result = await fetch(`/atul-admin/education/view/${protid}/${eduid}`);
+            const data = await result.json();
+            $('#mInstitute').text(data.insitute);
+            $('#mCourse').text(data.course);
+            $('#mGrade').text(data.grade);
+            $('#mStart').text(new Date(data.from).toDateString());
+            $('#mEnd').text(new Date(data.to).toDateString());
+        })
+
+        function formatDate(date) {
+            const d = new Date(date);
+            return d.toISOString().split("T")[0];
+        }
+        // edit education
+        $(document).on("click", ".editBtn", async function () {
+            const protid = $(this).data("protid");
+            const eduid = $(this).data("eduid");
+            console.log(protid, eduid);
+            const result = await fetch(`/atul-admin/education/edit/${protid}/${eduid}`);
+            const data = await result.json();
+            console.log(data);
+
+            $('#editid').val(data._id);
+            $('#editinsitute').val(data.insitute);
+            $('#editcourse').val(data.course);
+            $('#editgrade').val(data.grade);
+            $('#editfrom').val(formatDate(data.from));
+            $('#editto').val(formatDate(data.to));
+        })
+
+    </script>

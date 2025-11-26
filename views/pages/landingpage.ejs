@@ -1,0 +1,12 @@
+<% layout("./layouts/boilerplate.ejs")%>
+<% block('title', 'Home') %>
+
+<div class="mainContent text-light">
+    <div class="content pt-5 px-3">
+        <%- include("./introduction.ejs") %>
+        <%- include("./experience.ejs") %>
+        <%- include("./educations.ejs")%>
+        <%- include("./projects.ejs") %>    
+        <%- include("./bottom.ejs") %>    
+    </div>
+</div>

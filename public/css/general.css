@@ -1,0 +1,62 @@
+.shadow-primary {
+  box-shadow: 0 0.5rem 1rem rgba(13, 110, 253, 0.4) !important;
+}
+
+.cursor-circle {
+  position: fixed;
+  width: 320px;
+  height: 320px;
+  border-radius: 50%;
+  background: rgba(13, 110, 253, 0.1); /* bootstrap primary (blue) */
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  transition: 50ms linear;
+  mix-blend-mode: screen; /* smooth glowing effect */
+}
+.dark-grey {
+  background-color: #343a40;
+}
+
+.vh-auto {
+  height: auto;
+}
+
+.ql-toolbar.ql-snow {
+  background: #ffffff; /* white background for writing area */
+  color: #000000; /* black text */
+}
+
+@media (min-width: 768px) {
+  .vh-md-95 {
+    height: 100vh;
+  }
+}
+.min-vh-95 {
+  height: 95vh;
+}
+
+#myTable {
+  background-color: white;
+  color: black;
+}
+#dt-search-0 {
+  background-color: white;
+  color: black;
+}
+
+div.dt-container select.dt-input {
+  padding: 4px;
+  background: black;
+}
+
+/* parent height jitni ho, usme overflow allowed */
+.dashboard-details-content {
+  overflow: hidden; /* Page scroll se bachane ke liye */
+}
+
+/* yahi container andar scroll karega */
+.portfoliodetails {
+  max-height: 90vh; /* PAGE nahi, sirf box restrict hoga */
+  overflow-y: auto; /* vertical scroll */
+  overflow-x: hidden;
+}

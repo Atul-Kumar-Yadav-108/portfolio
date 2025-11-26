@@ -1,0 +1,54 @@
+<% block('title', 'Skill And Expertise' ) %>
+    <div class="admin-login-content col-md-6 offset-md-3 text-light pt-5">
+        <div class="login-form pt-5 pb-5 dark-grey m-3 px-4 rounded-3">
+            <h2 class="text-center mb-5 text-primary">Skill And Expertise
+            </h2>
+            <form action="/atul-admin/skillexpertise/<%= data._id %>?_method=PUT" method="post">
+                <div class="mb-3">
+                    <label for="languages" class="form-label">Languages</label>
+                    <input type="text" class="form-control" id="languages" name="languages"
+                        placeholder="Enter languages" value="<%= data.skillexpertise.languages%>">
+
+                </div>
+                <div class="mb-3">
+                    <label for="webtech" class="form-label">Web technologies</label>
+                    <input type="text" class="form-control" name="webtech" id="webtech" placeholder="Enter webtech"
+                        value="<%= data.skillexpertise.webtech%>">
+
+                </div>
+                <div class=" mb-3">
+                    <label for="frameworkLibrary" class="form-label">Framework and Library</label>
+                    <input type="text" class="form-control" id="frameworkLibrary" name="frameworkLibrary"
+                        placeholder="Enter Framework and Library" value="<%= data.skillexpertise.frameworkLibrary%>">
+
+                </div>
+
+                <div class=" mb-3">
+                    <label for="databases" class="form-label">Databases</label>
+                    <input type="text" class="form-control" id="databases" name="databases"
+                        placeholder="Enter Databases" aria-describedby="emailHelp"
+                        value="<%= data.skillexpertise.databases%>">
+
+                </div>
+
+                <div class=" mb-3">
+                    <label for="toolsplateforms" class="form-label">Tools and Plateforms</label>
+                    <input type="text" class="form-control" id="toolsplateforms" name="toolsplateforms"
+                        placeholder="Enter Tools and Plateforms" aria-describedby="emailHelp"
+                        value="<%= data.skillexpertise.toolsplateforms%>">
+
+                </div>
+
+                <div class=" mb-3">
+                    <label for="professionalskills" class="form-label">Professional skills</label>
+                    <input type="text" class="form-control" id="professionalskills" name="professionalskills"
+                        placeholder="Enter Professional skills" aria-describedby="emailHelp"
+                        value="<%= data.skillexpertise.professionalskills%>">
+
+                </div>
+                <div class=" mb-3 text-center">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>

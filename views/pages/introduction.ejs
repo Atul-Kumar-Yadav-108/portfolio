@@ -1,0 +1,17 @@
+<div class="image-intropart row" id="about">
+    <div class="col-md-4 rounded-circle d-flex justify-content-center">
+        <img src="<%= result.profileimage.path %>" alt="" class="rounded-circle" width="250" height="250">
+    </div>
+    <div class="col-md-8">
+        <h1 class="text-primary text-md-start text-center">
+            <%= position || '' %>
+        </h1>
+        <p>
+            <%- introduction || '' %>
+        </p>
+        <p class="text-primary">
+            <%- result.skillexpertise.languages%> , <%- result.skillexpertise.webtech%>
+        </p>
+    </div>
+
+</div>

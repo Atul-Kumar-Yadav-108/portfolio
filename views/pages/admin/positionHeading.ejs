@@ -1,0 +1,20 @@
+<% block('title', 'Position' ) %>
+    <div class="admin-login-content col-md-6 offset-md-3 text-light pt-5">
+        <div class="login-form pt-5 pb-5 dark-grey m-3 px-4 rounded-3">
+            <h2 class="text-center mb-5">Position : <span class="text-primary">
+                    <%=data.position%>
+                        <!-- <%= data._id %> -->
+                </span>
+            </h2>
+            <form action="/atul-admin/position/<%= data._id %>?_method=PUT" method="post">
+                <div class="mb-3">
+                    <label for="position" class="form-label">Enter your position</label>
+                    <input type="text" class="form-control" id="position" value="<%=data.position%>" name="position"
+                        placeholder="Enter your position like mern stack developer" aria-describedby="position">
+                </div>
+                <div class="div text-center">
+                    <button type="submit" class="btn btn-primary text-center">Update</button>
+                </div>
+            </form>
+        </div>
+    </div>

@@ -1,0 +1,23 @@
+<div class="projects-section px-3 py-3" id="projects">
+    <h1 class="text-primary">Projects</h1>
+    <ul>
+        <% for(project of projects){%>
+            <li>
+                <h4>
+                    <%=project.projectName%>
+                </h4>
+                <p>
+                    <%- project.description%>
+                </p>
+                <ul class="d-flex text-primary">
+                    <%for(tech of project.technologies){%>
+                        <li class="me-4">
+                            <%=tech%>
+                        </li>
+                        <%}%>
+                </ul>
+            </li>
+
+            <%}%>
+    </ul>
+</div>

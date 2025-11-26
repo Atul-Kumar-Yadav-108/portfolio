@@ -1,0 +1,27 @@
+<% layout("layouts/boilerplate.ejs") %>
+    <% block('title', 'Login' ) %>
+        <% if (error && error.length> 0) { %>
+            <div class="alert alert-danger">
+                <%= error[0] %>
+            </div>
+            <% } %>
+                <div class="admin-login-content col-md-6 offset-md-3 text-light pt-5">
+                    <div class="login-form pt-5 pb-5 dark-grey m-3 px-4 rounded-3">
+                        <h2 class="text-center mb-5">Admin Login</h2>
+                        <form action="/login" method="post">
+                            <div class="mb-3">
+                                <label for="exampleInputEmail1" class="form-label">Email address</label>
+                                <input type="email" class="form-control" id="email" name="email"
+                                    placeholder="Enter your email" aria-describedby="emailHelp">
+                            </div>
+                            <div class="mb-3">
+                                <label for="exampleInputPassword1" class="form-label">Password</label>
+                                <input type="password" class="form-control" id="password" name="password"
+                                    placeholder="Enter password">
+                            </div>
+                            <div class="div text-center">
+                                <button type="submit" class="btn btn-primary text-center">Submit</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>

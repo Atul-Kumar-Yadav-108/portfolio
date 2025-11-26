@@ -1,0 +1,17 @@
+<% block('title', 'Profile Image' ) %>
+    <div class="admin-login-content col-md-6 offset-md-3 text-light pt-5">
+        <div class="login-form pt-5 pb-5 dark-grey m-3 px-4 rounded-3">
+            <h2 class="text-center mb-5 text-primary">Profile Image
+            </h2>
+            <form action="/profile/<%= data._id %>?_method=PUT" method="post" enctype='multipart/form-data'>
+
+                <div class=" mb-3">
+                    <label for="profileimage" class="form-label">Profile image</label>
+                    <input type="file" class="form-control" id="profileimage" name="profileimage" accept="image/*">
+                </div>
+                <div class=" mb-3 text-center">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>

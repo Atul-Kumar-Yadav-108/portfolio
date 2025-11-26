@@ -1,0 +1,38 @@
+<!-- <div class="experience-section px-3 py-3" id="experience">
+    <h1 class="text-primary">Experience</h1>
+    <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sapiente fuga impedit maxime exercitationem excepturi,
+        incidunt debitis tempore quae molestiae, ducimus obcaecati quaerat! Corporis facilis officiis iure ad laborum.
+        At, praesentium vitae reprehenderit iste ipsam consectetur ipsa magni, minima quia possimus quidem ipsum?
+        Officia fuga veniam voluptates, vel ut consequuntur sint quos ea! Delectus cum dolores sunt incidunt distinctio,
+        natus minus dolorum sequi fugiat veniam earum quibusdam molestias cumque nesciunt, autem odio ipsa amet nemo
+        totam! Ea tempora cumque et ipsam atque, totam ullam rerum doloribus! Sit accusamus beatae dolore dicta sunt
+        tempora illum, maxime aliquid atque architecto possimus aut est?</p>
+</div> -->
+
+<div class="experience-section px-3 py-3" id="experience">
+    <h1 class="text-primary">Experience</h1>
+    <ul>
+        <% for(exp of experience){%>
+            <li>
+                <div class="d-flex">
+                    <h4 class="me-5">
+                        <%= exp.company%>
+                    </h4>
+                    <p><b>( <%= (()=> {
+                                const d = new Date(exp.DOJ);
+                                return String(d.getMonth()+1).padStart(2,"0") + "/" + d.getFullYear();
+                                })()%> - <%= (()=> {
+                                    if(!exp.DOL){
+                                    return "present"
+                                    }
+                                    const d = new Date(exp.DOL);
+                                    return String(d.getMonth()+1).padStart(2,"0") + "/" + d.getFullYear();
+                                    })()%> )</b></p>
+                </div>
+                <p>
+                    <%- exp.description%>
+                </p>
+            </li>
+            <% }%>
+    </ul>
+</div>

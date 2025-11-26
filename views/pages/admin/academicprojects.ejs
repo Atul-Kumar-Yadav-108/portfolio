@@ -1,0 +1,20 @@
+<% block('title', 'Academic Project' ) %>
+    <div class="admin-login-content col-md-6 offset-md-3 text-light pt-5">
+        <div class="login-form pt-5 pb-5 dark-grey m-3 px-4 rounded-3">
+            <h2 class="text-center mb-5 text-primary">Academic Projects
+            </h2>
+            <form action="/atul-admin/academicprojects/<%= data._id %>?_method=PUT" method="post">
+                <div class="mb-3">
+                    <div id="editor" class="form-control" style="min-height: 200px;">
+                        <%- data.academicprojects %>
+                    </div>
+
+                    <!-- Hidden input where Quill content will be saved -->
+                    <input type="hidden" name="academicprojects" id="academicprojects">
+                </div>
+                <div class="div text-center">
+                    <button type="submit" class="btn btn-primary text-center">Update</button>
+                </div>
+            </form>
+        </div>
+    </div>

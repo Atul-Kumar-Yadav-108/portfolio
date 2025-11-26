@@ -1,0 +1,295 @@
+<% block('title', 'Projects' ) %>
+    <div class="admin-login-content col-md-10 offset-md-1 text-light pt-5">
+        <div class="login-form pt-3 pb-3 dark-grey m-2 px-4 rounded-3">
+            <h2 class="text-center mb-5 text-primary">Projects
+            </h2>
+            <div class="d-flex justify-content-end">
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    Add +
+                </button>
+            </div>
+            <table id="myTable" class="display">
+                <thead>
+                    <tr>
+                        <th>Sno</th>
+                        <th>Project</th>
+                        <th>Technologies</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% let idx=0; for(project of data.projects){%>
+                        <tr>
+                            <td>
+                                <%= idx+=1;%>
+                            </td>
+                            <td>
+                                <%= project.projectName%>
+                            </td>
+                            <td>
+                                <%= project.technologies%>
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-warning viewBtn" data-bs-toggle="modal"
+                                    data-bs-target="#viewProjectModal" data-portid="<%= data._id %>"
+                                    data-projid="<%= project._id %>">
+                                    View
+                                </button>
+
+                                <button type="button" class="btn btn-primary editBtn" data-bs-toggle="modal"
+                                    data-bs-target="#editProjectModal" data-portid="<%= data._id %>"
+                                    data-projid="<%= project._id %>">
+                                    Edit
+                                </button>
+                                <button type="button" class="btn btn-danger deleteBtn" data-bs-toggle="modal"
+                                    data-bs-target="#deleteProjectModal" data-portid="<%= data._id %>"
+                                    data-projid="<%= project._id %>">
+                                    Delete
+                                </button>
+                            </td>
+                        </tr>
+                        <%}%>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- add model -->
+        <div class="modal fade text-dark" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Add Project</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="/atul-admin/projects/<%=data._id%>" method="post">
+                            <div class="mb-3">
+                                <label for="projectname" class="form-label">Project name</label>
+                                <input type="text" class="form-control" id="projectname" name="projectname"
+                                    placeholder="Project name">
+                            </div>
+                            <div class="mb-3">
+                                <label for="description" class="form-label">Description</label>
+                                <div id="quillDescription" class="form-control" style="min-height: 100px;">
+                                </div>
+                                <input type="hidden" name="description" id="description">
+                            </div>
+                            <div class="mb-3">
+                                <label for="technologies" class="form-label">Technologies</label>
+                                <input id="tags" name="technologies" id="technologies" class="form-control"
+                                    placeholder="Technologies">
+                            </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- edit project model -->
+        <div class="modal fade text-dark" id="editProjectModal" tabindex="-1" aria-labelledby="editProjectModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="editProjectModalLabel">Edit Project</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="/atul-admin/projects/edit/<%=data._id%>?_method=PUT" method="post">
+                            <input type="hidden" name="projectid" id="projectid">
+                            <input type="hidden" name="portfolioid" id="portfolioid" value="<%=data._id%>">
+                            <div class="mb-3">
+                                <label for="editprojectname" class="form-label">Project name</label>
+                                <input type="text" class="form-control" id="editprojectname" name="projectname"
+                                    placeholder="Project name">
+                            </div>
+                            <div class="mb-3">
+                                <label for="editdescription" class="form-label">Description</label>
+                                <div id="quillEditDescription" class="form-control" style="min-height: 100px;">
+                                </div>
+                                <input type="hidden" name="description" id="editdescription">
+                            </div>
+                            <div class="mb-3">
+                                <label for="edittechnologies" class="form-label">Technologies</label>
+                                <input id="edittags" name="technologies" class="form-control"
+                                    placeholder="Technologies">
+                            </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Update</button>
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- view project modal -->
+        <div class="modal fade text-dark" id="viewProjectModal" tabindex="-1" aria-labelledby="viewProjectModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="viewProjectModalLabel">Details</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="mb-3 row">
+                            <h6 class="col-4">Project name</h6>
+                            <p class="col-8"><b id="mprojectname"></b></p>
+                        </div>
+                        <div class="mb-3 row">
+                            <h6 class="col-4">Description</h6>
+                            <p class="col-8"><b id="mdescription"></b></p>
+                        </div>
+                        <div class="mb-3 row">
+                            <h6 class="col-4">Technologies</h6>
+                            <p class="col-8"><b id="mtechnologies"></b></p>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- delete project modal -->
+        <div class="modal fade text-dark" id="deleteProjectModal" tabindex="-1"
+            aria-labelledby="deleteProjectModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="deleteProjectModalLabel"><i class="fa-solid fa-triangle-exclamation"
+                                style="color: #080808;"></i> Delete?</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <h5>Are you sure to delete it?</h5>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+                        <form id="deleteForm" method="post">
+                            <button type="submit" class="btn btn-primary">Yes</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function () {
+            $('#myTable').DataTable();
+        });
+
+        let tagify;
+        let currentData = null;
+
+        $('#exampleModal').on('shown.bs.modal', function () {
+            const input = document.getElementById('tags');
+
+            // agar tagify already exist hai to destroy kar do
+            if (tagify) {
+                tagify.destroy();
+            }
+
+            // modal open hone ke baad hi initialize karo
+            tagify = new Tagify(input);
+        });
+
+        const quill = new Quill('#quillDescription', {
+            theme: 'snow'
+        });
+        $("form").on("submit", () => {
+            $("#description").val(quill.root.innerHTML);
+        })
+
+        // edit modal data
+        $(document).on("click", ".editBtn", async function () {
+            const portid = $(this).data("portid");
+            const projid = $(this).data("projid");
+            console.log(portid, projid);
+
+            try {
+                const url = `/atul-admin/projects/edit/${portid}/${projid}`;
+                const res = await fetch(url);
+                const data = await res.json();
+                console.log(data);
+                currentData = data; // 👉 Save data globally
+                $("#projectid").val(data._id);
+                $("#editprojectname").val(data.projectName);
+                // $("#editdescription").val(data.description);
+                quillEdit.root.innerHTML = data.description
+
+                // ---------------------------
+                // TAGIFY RESET + RELOAD
+                // ---------------------------
+                $("#editProjectModal").on("shown.bs.modal", function () {
+                    // Purana Tagify instance ho to remove
+
+
+                    // Input ko fetch karo
+                    let input = document.querySelector("#edittags");
+                    if (tagify) {
+                        tagify.destroy();
+                    }
+
+                    // Naya Tagify create karo
+                    tagify = new Tagify(input);
+
+                    // Array tags add karo
+                    if (currentData) {
+                        tagify.addTags(currentData.technologies);
+                    }
+                })
+
+            } catch (error) {
+                console.log("Error", error);
+
+            }
+        })
+
+        // view model data
+        $(document).on("click", ".viewBtn", async function () {
+            const portid = $(this).data("portid");
+            const projid = $(this).data("projid");
+            // console.log(portid, projid);
+            try {
+                const res = await fetch(`/atul-admin/projects/${portid}/${projid}`);
+                const data = await res.json();
+                // console.log(data);
+
+                $("#mprojectname").text(data.projectName);
+                $("#mdescription").html(data.description);
+                $("#mtechnologies").text(data.technologies);
+            } catch (error) {
+                console.error("Error:", error);
+
+            }
+
+        })
+
+        // delete modal
+
+        $(document).on("click", ".deleteBtn", function () {
+            const portid = $(this).data("portid");
+            const projid = $(this).data("projid");
+            const url = `/atul-admin/projects/delete/${portid}/${projid}`;
+            $("#deleteForm").attr("action", url);
+        })
+
+        const quillEdit = new Quill("#quillEditDescription", {
+            theme: "snow"
+        })
+
+        // when edit form submitted then quill data sending
+        $("form").on("submit", function () {
+            $("#editdescription").val(quillEdit.root.innerHTML);
+        })
+    </script>
