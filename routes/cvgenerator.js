@@ -16,11 +16,11 @@ router.get('/generate-cv', async (req, res) => {
         const htmlContent = await ejs.renderFile(filePath, { user: user });
 
         // 3️⃣ Launch Puppeteer
-        const browser = await puppeteer.launch({
-            headless: true,
-            args: ['--no-sandbox', '--disable-setuid-sandbox'],
-            executablePath: puppeteer.executablePath()
-        });
+       const browser = await puppeteer.launch({
+    headless: true,
+    args: ['--no-sandbox', '--disable-setuid-sandbox', '--single-process', '--no-zygote'],
+    executablePath: puppeteer.executablePath() // यह अब Render के पाथ का उपयोग करेगा
+});
 
         const page = await browser.newPage();
         await page.setContent(htmlContent, { waitUntil: 'networkidle0' });
