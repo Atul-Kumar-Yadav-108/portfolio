@@ -3,22 +3,23 @@ const router = express.Router();
 const portfolioModel = require("../schema/portfolio.js");
 const ejs = require('ejs');
 const path = require('path');
-const chromium = require('chrome-aws-lambda');
-const puppeteer = require('puppeteer-core');
+const puppeteer = require('puppeteer');
 
 router.get('/generate-cv', async (req, res) => {
     try {
+        // 1️⃣ Fetch user data
         const user = await portfolioModel.findOne();
         if (!user) return res.status(404).send('यूजर नहीं मिला');
 
+        // 2️⃣ Render EJS to HTML
         const filePath = path.join(__dirname, '../views/pages/cv_builder.ejs');
         const htmlContent = await ejs.renderFile(filePath, { user: user });
 
+        // 3️⃣ Launch Puppeteer
         const browser = await puppeteer.launch({
-            args: chromium.args,
-            defaultViewport: chromium.defaultViewport,
-            executablePath: await chromium.executablePath,
-            headless: chromium.headless,
+            headless: true,
+            args: ['--no-sandbox', '--disable-setuid-sandbox'],
+            executablePath: puppeteer.executablePath()
         });
 
         const page = await browser.newPage();
@@ -32,6 +33,7 @@ router.get('/generate-cv', async (req, res) => {
 
         await browser.close();
 
+        // 4️⃣ Send PDF to user
         res.setHeader('Content-Type', 'application/pdf');
         res.setHeader('Content-Disposition', `attachment; filename="CV_${user.contact.name}.pdf"`);
         res.send(pdfBuffer);
