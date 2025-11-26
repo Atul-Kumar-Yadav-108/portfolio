@@ -13,7 +13,7 @@ function isLoggedIn(req, res, next) {
 }
 
 // Route to generate CV PDF
-router.get('/generate-cv', isLoggedIn, async (req, res) => {
+router.get('/generate-cv', async (req, res) => {
   try {
     // 1️⃣ MongoDB से डेटा प्राप्त करें
     const user = await portfolioModel.findOne();
