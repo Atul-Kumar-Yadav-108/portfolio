@@ -41,7 +41,7 @@ function isLoggedIn(req, res, next) {
 }
 
 router.get("/",(req,res)=>{
-    res.render("./pages/admin/loginPage.ejs", { error: req.flash("error") });
+    res.render("./pages/admin/loginPage.ejs", { currentPage: "",error: req.flash("error") });
 })
 
 router.get("/dashboard",isLoggedIn,async(req,res)=>{
