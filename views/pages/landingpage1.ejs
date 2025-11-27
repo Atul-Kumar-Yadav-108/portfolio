@@ -10,6 +10,7 @@
                     <%- include("./experience.ejs", { experience: result.experience }) %>
                         <%- include("./educations.ejs", { education: result.education })%>
                             <%- include("./projects.ejs",{projects : result.projects}) %>
-                                <%- include("./bottom.ejs") %>
+                                <%- include("./certifications.ejs",{certification : result.certifications}) %>
+                                    <%- include("./bottom.ejs") %>
             </div>
         </div>
