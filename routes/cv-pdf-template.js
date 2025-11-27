@@ -18,6 +18,8 @@ function createCV(doc, user) {
     );
 
     doc.text(`LinkedIn: ${user.socialmedia.linkedin}`, { align: "center" });
+    doc.moveDown(0.3);
+    doc.text(`Portfolio: https://portfolio-atul-kumar-yadav.onrender.com/ `, { align: "center" });
     doc.moveDown(1);
 
     // ---------- SECTION HEADING ----------
