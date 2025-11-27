@@ -4,15 +4,18 @@
 
 .cursor-circle {
   position: fixed;
-  width: 320px;
-  height: 320px;
+  width: 20vw;
+  height: 20vw;
+  max-width: 320px;
+  max-height: 320px;
   border-radius: 50%;
-  background: rgba(13, 110, 253, 0.1); /* bootstrap primary (blue) */
+  background: rgba(13, 110, 253, 0.1);
   pointer-events: none;
   transform: translate(-50%, -50%);
   transition: 50ms linear;
-  mix-blend-mode: screen; /* smooth glowing effect */
+  mix-blend-mode: screen;
 }
+
 .dark-grey {
   background-color: #343a40;
 }
