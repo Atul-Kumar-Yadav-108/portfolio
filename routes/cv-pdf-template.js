@@ -1,5 +1,7 @@
 // cv-pdf-template.js
 const PDFDocument = require("pdfkit");
+const { htmlToText } = require("html-to-text");
+
 
 function createCV(doc, user) {
 
@@ -45,7 +47,7 @@ function createCV(doc, user) {
         doc.fontSize(12).text(`${exp.designation} | ${exp.company}`);
         doc.fontSize(10).text(`[${DOJ} - ${DOL}]`);
 
-        doc.fontSize(10).moveDown(0.3).text(exp.description || "");
+        doc.moveDown(0.3).fontSize(10).text(htmlToText(exp.description || "", { wordwrap: false }));
         doc.moveDown(0.5);
     });
 
@@ -54,7 +56,7 @@ function createCV(doc, user) {
 
     user.projects.forEach(project => {
         doc.fontSize(12).text(`${project.projectName}  |  (${project.technologies})`);
-        doc.fontSize(10).text(project.description || "");
+        doc.moveDown(0.3).fontSize(10).text(htmlToText(project.description || "", { wordwrap: false }));
         doc.moveDown(0.5);
     });
 

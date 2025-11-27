@@ -6,13 +6,14 @@ const createCV = require("./cv-pdf-template");
 
 router.get('/generate-cv', async (req, res) => {
     try {
+        const user = await portfolioModel.findOne(); // or from DB
     const doc = new PDFDocument();
     res.setHeader("Content-Type", "application/pdf");
-    res.setHeader("Content-Disposition", "attachment; filename=cv.pdf");
+    res.setHeader("Content-Disposition", `attachment; filename=${user.contact.name}.pdf`);
 
     doc.pipe(res);
 
-    const user = await portfolioModel.findOne(); // or from DB
+    
     createCV(doc, user);
 
     } catch (error) {
