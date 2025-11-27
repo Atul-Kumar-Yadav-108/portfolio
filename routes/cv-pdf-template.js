@@ -35,12 +35,12 @@ function createCV(doc, user) {
 
     // ---------- SUMMARY ----------
     addSection("Summary");
-    doc.fontSize(11).text(user.introduction || "", { align: "left" });
+    doc.fontSize(10).text(htmlToText(user.introduction || "", { wordwrap: false }) || "", { align: "left" });
 
     // ---------- EXPERIENCE ----------
     addSection("Work Experience");
 
-    user.experience.forEach(exp => {
+    user.experience.reverse().forEach(exp => {
         const DOJ = formatMonthYear(exp.DOJ);
         const DOL = exp.DOL ? formatMonthYear(exp.DOL) : "Present";
 
@@ -54,7 +54,7 @@ function createCV(doc, user) {
     // ---------- PROJECTS ----------
     addSection("Projects");
 
-    user.projects.forEach(project => {
+    user.projects.reverse().forEach(project => {
         doc.fontSize(12).text(`${project.projectName}  |  (${project.technologies})`);
         doc.moveDown(0.3).fontSize(10).text(htmlToText(project.description || "", { wordwrap: false }));
         doc.moveDown(0.5);
@@ -63,7 +63,7 @@ function createCV(doc, user) {
     // ---------- SKILLS ----------
     addSection("Skills and Certifications");
 
-    doc.fontSize(11).text(`Languages: ${user.skillexpertise.languages || ''}`);
+    doc.fontSize(10).text(`Languages: ${user.skillexpertise.languages || ''}`);
     doc.text(`Web technologies: ${user.skillexpertise.webtech || ''}`);
     doc.text(`Frameworks / Libraries: ${user.skillexpertise.frameworkLibrary || ''}`);
     doc.text(`Databases: ${user.skillexpertise.databases || ''}`);
@@ -73,7 +73,7 @@ function createCV(doc, user) {
     // ---------- EDUCATION ----------
     addSection("Education");
 
-    user.education.forEach(edu => {
+    user.education.reverse().forEach(edu => {
         doc.fontSize(12).text(`${edu.course}  [${edu.from.getFullYear()} - ${edu.to.getFullYear()}]`);
         doc.fontSize(10).text(edu.insitute);
         doc.text(`Grade/CGPA: ${edu.grade}`);
@@ -83,7 +83,7 @@ function createCV(doc, user) {
     // ---------- CERTIFICATIONS ----------
     addSection("Certifications");
 
-    doc.fontSize(11).text(user.certifications || "");
+    doc.fontSize(10).text(htmlToText(user.certifications || "", { wordwrap: false }) || "");
 
     doc.end();
 }

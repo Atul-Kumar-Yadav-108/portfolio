@@ -1,7 +1,7 @@
 <div class="projects-section px-3 py-3" id="projects">
     <h2 class="text-primary">Projects</h2>
     <ul>
-        <% for(project of projects){%>
+        <% for(project of projects.slice().reverse()){%>
             <li>
                 <h4>
                     <%=project.projectName%>
