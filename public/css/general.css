@@ -13,7 +13,7 @@
   pointer-events: none;
   transform: translate(-50%, -50%);
   transition: 50ms linear;
-  mix-blend-mode: screen;
+  /* mix-blend-mode: screen; */
 }
 
 .dark-grey {
@@ -63,3 +63,92 @@ div.dt-container select.dt-input {
   overflow-y: auto; /* vertical scroll */
   overflow-x: hidden;
 }
+
+/* dark mode switcher */
+
+/* Default Light Mode */
+body {
+  background-color: #f8f7f7ff;
+  color: #000000;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+/* Dark Mode */
+body.dark {
+  background-color: #121212;
+  color: #ffffff;
+}
+
+body.dark.cursor-circle {
+  mix-blend-mode: screen;
+}
+
+.navbar-brand {
+  color: #000 !important;
+}
+
+/* Brand */
+body.dark .navbar-brand {
+  color: #ffffff !important;
+}
+
+.navbar .nav-link {
+  color: #000 !important;
+}
+
+/* Nav links */
+body.dark .navbar .nav-link {
+  color: #e0e0e0 !important;
+}
+
+.navbar .nav-link.active {
+  color: #000 !important;
+  font-weight: bold;
+}
+
+/* Active link */
+body.dark .navbar .nav-link.active {
+  color: #00ff99 !important;
+}
+
+.navbar .nav-link:hover {
+  color: #0a0a0aff !important;
+  font-weight: bold;
+}
+
+/* Hover */
+body.dark .navbar .nav-link:hover {
+  color: #00ff99 !important;
+}
+
+.navbar-toggler {
+  border-color: #000 !important;
+}
+
+.navbar-toggler-icon {
+  border-color: #000 !important;
+}
+
+/* Toggle button (mobile) */
+body.dark .navbar-toggler {
+  border-color: #ffffff !important;
+}
+body.dark .navbar-toggler-icon {
+  border-color: #ffffff !important;
+}
+
+/* Default (Light Mode) */
+.navbar-toggler i {
+  color: #000;
+  font-size: 1.2rem;
+}
+
+/* Dark Mode */
+body.dark .navbar-toggler i {
+  color: #ffffff;
+}
+
+/* 
+body.dark .navbar-toggler-icon {
+  filter: invert(1);
+} */
