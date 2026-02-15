@@ -37,66 +37,54 @@ function makeSafeResult(result) {
   };
 }
 
-const projectRoute = express.Router();
+const experienceRoute = express.Router();
 
-projectRoute.get("/", async (req, res) => {
+experienceRoute.get("/:id", async (req, res) => {
   try {
     const result = makeSafeResult(null);
-    const projects = await portfolioModel.find({}, { projects: 1, _id: 0 });
-    res.render("./pages/project_all.ejs", {
-      data: "I am atul kumar yadav",
-      projects: projects[0]["projects"],
-      currentPage: "Project List",
-      result: result,
-    });
-  } catch (error) {}
-});
-
-projectRoute.get("/:id", async (req, res) => {
-  try {
-    const result = makeSafeResult(null);
-    const project_id = req.params.id;
+    const experience_id = req.params.id;
 
     // 1️⃣ Validate ObjectId
     const mongoose = require("mongoose");
-    if (!mongoose.Types.ObjectId.isValid(project_id)) {
+    if (!mongoose.Types.ObjectId.isValid(experience_id)) {
       return res.render("./pages/pagenotfound.ejs", {
-        currentPage: "Project Details",
+        currentPage: "Experience Details",
         result: result,
       });
     }
 
     // 2️⃣ Convert to ObjectId
-    const objectId = new mongoose.Types.ObjectId(project_id);
+    const objectId = new mongoose.Types.ObjectId(experience_id);
 
     // 3️⃣ Query safely
-    const project = await portfolioModel
+    const exp = await portfolioModel
       .findOne(
-        { "projects._id": objectId },
-        { projects: { $elemMatch: { _id: objectId } } },
+        { "experience._id": objectId },
+        { experience: { $elemMatch: { _id: objectId } } },
       )
       .lean(); // lean() for faster query
 
-    // console.log(project);
+    // console.log(exp);
 
     // 4️⃣ Handle not found
-    if (!project) {
+    if (!exp) {
       return res.render("./pages/pagenotfound.ejs", {
-        currentPage: "Project Details",
+        currentPage: "Experience Details",
         result: result,
       });
     }
 
     // 5️⃣ Render project details
-    res.render("./pages/project_details.ejs", {
-      data: "I am atul kumar yadav",
-      project: project.projects[0],
-      currentPage: "Project Details",
+    res.render("./pages/exp_details.ejs", {
+      experience: exp.experience[0],
+      currentPage: "Experience Details",
       result: result,
     });
 
     // console.log(project_id);
-  } catch (error) {}
+  } catch (error) {
+    console.log(error);
+  }
 });
 
-module.exports = projectRoute;
+module.exports = experienceRoute;

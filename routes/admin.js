@@ -4,6 +4,7 @@ const portfolioModel = require("../schema/portfolio.js");
 const router = express.Router();
 
 const methodOverride = require("method-override");
+const mongoose = require("mongoose");
 
 // form me _method use karne ke liye
 router.use(methodOverride("_method"));
@@ -70,7 +71,6 @@ router.get("/position", isLoggedIn, async (req, res) => {
   const parts = req.originalUrl.split("/");
   let data = await portfolioModel.findOne();
   data = makeSafeResult(data);
-  // console.log(data);
   res.render("./pages/admin/dashboard.ejs", {
     currentPage: "dashboard",
     url: parts.pop(),
@@ -90,7 +90,6 @@ router.get("/introduction", isLoggedIn, async (req, res) => {
   const parts = req.originalUrl.split("/");
   let data = await portfolioModel.findOne();
   data = makeSafeResult(data);
-  console.log(data);
   res.render("./pages/admin/dashboard.ejs", {
     currentPage: "dashboard",
     url: parts.pop(),
@@ -109,7 +108,6 @@ router.get("/experience", isLoggedIn, async (req, res) => {
   const parts = req.originalUrl.split("/");
   let data = await portfolioModel.findOne();
   data = makeSafeResult(data);
-  console.log(data);
   res.render("./pages/admin/dashboard.ejs", {
     currentPage: "dashboard",
     url: parts.pop(),
@@ -120,12 +118,19 @@ router.get("/experience", isLoggedIn, async (req, res) => {
 router.post("/experience/:id", isLoggedIn, async (req, res) => {
   // const parts = req.originalUrl.split('/');
   const id = req.params;
-  const { company, designation, description, doj, dol } = req.body;
+  const { company, designation, description, doj, dol, location } = req.body;
   await portfolioModel.findByIdAndUpdate(
     id.id,
     {
       $push: {
-        experience: { company, designation, description, DOJ: doj, DOL: dol },
+        experience: {
+          company,
+          designation,
+          description,
+          DOJ: doj,
+          DOL: dol,
+          location,
+        },
       },
     },
     { new: true },
@@ -177,10 +182,14 @@ router.get("/experience/edit/:protid/:expid", isLoggedIn, async (req, res) => {
 router.post("/experience/:id", isLoggedIn, async (req, res) => {
   // const parts = req.originalUrl.split('/');
   const id = req.params;
-  const { company, description, doj, dol } = req.body;
+  const { company, description, doj, dol, location } = req.body;
   await portfolioModel.findByIdAndUpdate(
     id.id,
-    { $push: { experience: { company, description, DOJ: doj, DOL: dol } } },
+    {
+      $push: {
+        experience: { company, description, DOJ: doj, DOL: dol, location },
+      },
+    },
     { new: true },
   );
   res.redirect("/atul-admin/experience");
@@ -204,7 +213,7 @@ router.put("/experience/:expid", isLoggedIn, async (req, res) => {
   try {
     const portfolioId = req.body.portfolioId; // hidden input in form
     const expId = req.body.expId; // hidden input in form
-    const { company, designation, description, doj, dol } = req.body;
+    const { company, designation, description, doj, dol, location } = req.body;
 
     await portfolioModel.updateOne(
       { _id: portfolioId, "experience._id": expId }, // find correct experience
@@ -213,6 +222,7 @@ router.put("/experience/:expid", isLoggedIn, async (req, res) => {
           "experience.$.company": company,
           "experience.$.designation": designation,
           "experience.$.description": description,
+          "experience.$.location": location,
           "experience.$.DOJ": doj,
           "experience.$.DOL": dol,
         },
@@ -246,7 +256,6 @@ router.get("/education", isLoggedIn, async (req, res) => {
   const parts = req.originalUrl.split("/");
   let data = await portfolioModel.findOne();
   data = makeSafeResult(data);
-  console.log(data);
   res.render("./pages/admin/dashboard.ejs", {
     currentPage: "dashboard",
     url: parts.pop(),
@@ -258,7 +267,7 @@ router.get("/education", isLoggedIn, async (req, res) => {
 router.post("/education/:id", isLoggedIn, async (req, res) => {
   // const parts = req.originalUrl.split('/');
   const id = req.params;
-  const { insitute, course, grade, from, to } = req.body;
+  const { insitute, course, grade, from, to, location } = req.body;
   await portfolioModel.findByIdAndUpdate(
     id.id,
     {
@@ -269,6 +278,7 @@ router.post("/education/:id", isLoggedIn, async (req, res) => {
           grade,
           from,
           to,
+          location,
         },
       },
     },
@@ -317,12 +327,11 @@ router.get("/education/edit/:protid/:eduid", isLoggedIn, async (req, res) => {
 // update education
 router.put("/education/:eduid", isLoggedIn, async (req, res) => {
   try {
-    const portfolioId = req.body.portfolioId; // hidden input in form
-    const eduid = req.body.eduid; // hidden input in form
-    const { insitute, course, grade, from, to } = req.body;
-
-    await portfolioModel.updateOne(
-      { _id: portfolioId, "education._id": eduid }, // find correct education
+    const portfolioObjectId = new mongoose.Types.ObjectId(req.body.portfolioId);
+    const eduObjectId = new mongoose.Types.ObjectId(req.body.eduid);
+    const { insitute, course, grade, from, to, location } = req.body;
+    const result = await portfolioModel.updateOne(
+      { _id: portfolioObjectId, "education._id": eduObjectId }, // find correct education
       {
         $set: {
           "education.$.insitute": insitute,
@@ -330,10 +339,10 @@ router.put("/education/:eduid", isLoggedIn, async (req, res) => {
           "education.$.grade": grade,
           "education.$.from": from,
           "education.$.to": to,
+          "education.$.location": location,
         },
       },
     );
-
     res.redirect("/atul-admin/education");
     // res.send(req.body)
   } catch (err) {
@@ -349,7 +358,6 @@ router.post(
   isLoggedIn,
   async (req, res) => {
     const { protid, eduid } = req.params;
-    console.log(protid, eduid);
 
     await portfolioModel.findByIdAndUpdate(protid, {
       $pull: { education: { _id: eduid } },
@@ -363,7 +371,6 @@ router.get("/projects", isLoggedIn, async (req, res) => {
   const parts = req.originalUrl.split("/");
   let data = await portfolioModel.findOne();
   data = makeSafeResult(data);
-  console.log(data);
   res.render("./pages/admin/dashboard.ejs", {
     currentPage: "dashboard",
     url: parts.pop(),
@@ -414,7 +421,6 @@ router.get("/projects/:portid/:projid", isLoggedIn, async (req, res) => {
 router.get("/projects/edit/:portid/:projid", isLoggedIn, async (req, res) => {
   const portid = req.params.portid;
   const projid = req.params.projid;
-  // console.log("first",projid, portid);
   try {
     let portfolio = await portfolioModel.findOne(
       {
@@ -438,7 +444,6 @@ router.get("/projects/edit/:portid/:projid", isLoggedIn, async (req, res) => {
 router.put("/projects/edit/:portid", isLoggedIn, async (req, res) => {
   const portid = req.body.portfolioid;
   const projid = req.body.projectid;
-  console.log("first", projid, portid);
   let technologies = req.body.technologies;
   let techArray = await JSON.parse(technologies);
   technologies = techArray.map((tech) => tech.value);
@@ -492,7 +497,6 @@ router.get("/contact", isLoggedIn, async (req, res) => {
   const parts = req.originalUrl.split("/");
   let data = await portfolioModel.findOne();
   data = makeSafeResult(data);
-  console.log(data);
   res.render("./pages/admin/dashboard.ejs", {
     currentPage: "dashboard",
     url: parts.pop(),
@@ -518,7 +522,6 @@ router.put("/contact/:projectid", isLoggedIn, async (req, res) => {
       },
       { new: true },
     );
-    // console.log(data);
     res.redirect("/atul-admin/contact");
   } catch (error) {
     console.log("Update Error:", error);
@@ -530,7 +533,6 @@ router.get("/socialmedia", isLoggedIn, async (req, res) => {
   const parts = req.originalUrl.split("/");
   let data = await portfolioModel.findOne();
   data = makeSafeResult(data);
-  console.log(data);
   res.render("./pages/admin/dashboard.ejs", {
     currentPage: "dashboard",
     url: parts.pop(),
@@ -556,7 +558,6 @@ router.put("/socialmedia/:projectid", isLoggedIn, async (req, res) => {
       },
       { new: true },
     );
-    // console.log(data);
     res.redirect("/atul-admin/socialmedia");
   } catch (error) {
     console.log("Update Error:", error);
@@ -570,7 +571,6 @@ router.get("/certifications", isLoggedIn, async (req, res) => {
   const parts = req.originalUrl.split("/");
   let data = await portfolioModel.findOne();
   data = makeSafeResult(data);
-  console.log(data);
   res.render("./pages/admin/dashboard.ejs", {
     currentPage: "dashboard",
     url: parts.pop(),
@@ -592,7 +592,6 @@ router.get("/academicprojects", isLoggedIn, async (req, res) => {
   const parts = req.originalUrl.split("/");
   let data = await portfolioModel.findOne();
   data = makeSafeResult(data);
-  console.log(data);
   res.render("./pages/admin/dashboard.ejs", {
     currentPage: "dashboard",
     url: parts.pop(),
@@ -614,7 +613,6 @@ router.get("/skillexpertise", isLoggedIn, async (req, res) => {
   const parts = req.originalUrl.split("/");
   let data = await portfolioModel.findOne();
   data = makeSafeResult(data);
-  console.log(data);
   res.render("./pages/admin/dashboard.ejs", {
     currentPage: "dashboard",
     url: parts.pop(),
@@ -658,7 +656,6 @@ router.get("/profileimage", isLoggedIn, async (req, res) => {
   const parts = req.originalUrl.split("/");
   let data = await portfolioModel.findOne();
   data = makeSafeResult(data);
-  console.log(data);
   res.render("./pages/admin/dashboard.ejs", {
     currentPage: "dashboard",
     url: parts.pop(),

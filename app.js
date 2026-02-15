@@ -22,6 +22,7 @@ const cvRoutes = require("./routes/cvgenerator.js");
 const multer = require("multer");
 const { resolveSoa } = require("dns");
 const projectRoute = require("./routes/project.js");
+const experienceRoute = require("./routes/experience.js");
 // const upload = multer({ dest: 'uploads/' })
 
 // const storage = multer.diskStorage({
@@ -365,6 +366,7 @@ app.get("/generate-cv1", async (req, res) => {
 
 app.use("/", cvRoutes);
 app.use("/projects/", projectRoute);
+app.use("/experience/", experienceRoute);
 
 // image profile
 app.put("/profile/:id", upload.single("profileimage"), async (req, res) => {

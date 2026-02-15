@@ -73,6 +73,11 @@
                                         placeholder="Designation">
                                 </div>
                                 <div class="mb-3">
+                                    <label for="location" class="form-label">Location</label>
+                                    <input type="text" class="form-control" id="location" name="location"
+                                        placeholder="Location">
+                                </div>
+                                <div class="mb-3">
                                     <label for="description" class="form-label">Description</label>
                                     <div id="editorDescription" class="form-control" style="min-height: 100px;">
                                     </div>
@@ -127,6 +132,11 @@
                                         placeholder="Designation">
                                 </div>
                                 <div class="mb-3">
+                                    <label for="editLocation" class="form-label">Location</label>
+                                    <input type="text" class="form-control" id="editLocation" name="location"
+                                        placeholder="Location">
+                                </div>
+                                <div class="mb-3">
                                     <label for="editDescription" class="form-label">Description</label>
                                     <div id="editorEditDescription" class="form-control" style="min-height: 100px;">
                                     </div>
@@ -178,6 +188,10 @@
                             <div class="description row">
                                 <h6 class="col-4">Description</h6>
                                 <p class="col-8"><b id="mDescription"></b></p>
+                            </div>
+                            <div class="location row">
+                                <h6 class="col-4">Location</h6>
+                                <p class="col-8"><b id="mLocation"></b></p>
                             </div>
 
                             <div class="DOJ row">
@@ -242,6 +256,7 @@
                     $("#mCompany").text(data.company);
                     $("#mDesignation").text(data.designation);
                     $("#mDescription").html(data.description);
+                    $("#mLocation").html(data.location);
                     $("#mDOJ").text(new Date(data.DOJ).toDateString());
                     $("#mDOL").text(new Date(data.DOL).toDateString());
 
@@ -268,6 +283,7 @@
                     $("#expId").val(data._id);
                     $("#editCompany").val(data.company);
                     $("#editDesignation ").val(data.designation);
+                    $("#editLocation ").val(data.location);
                     quillEdit.root.innerHTML = data.description;
                     $("#editDoj").val(formatDate(data.DOJ));
                     $("#editDol").val(formatDate(data.DOL));

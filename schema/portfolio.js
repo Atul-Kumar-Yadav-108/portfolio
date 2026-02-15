@@ -42,6 +42,9 @@ const portfolioSchema = new Schema({
           message: "DOL must be after DOJ",
         },
       },
+      location: {
+        type: String,
+      },
     },
   ],
   education: [
@@ -72,6 +75,9 @@ const portfolioSchema = new Schema({
           },
           message: "To must be after From",
         },
+      },
+      location: {
+        type: String,
       },
     },
   ],
