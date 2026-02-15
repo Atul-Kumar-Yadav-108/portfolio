@@ -9,30 +9,53 @@
         tempora illum, maxime aliquid atque architecto possimus aut est?</p>
 </div> -->
 
-<div class="experience-section px-3 py-3" id="experience">
-    <h2 class="text-primary">Experience</h2>
-    <ul>
-        <% for(exp of experience.slice().reverse()){%>
-            <li>
-                <div class="d-flex">
-                    <h4 class="me-5">
+<div class="experience-section px-3 py-3 border border-start-0 border-end-0" id="experience">
+    <h2 class=""><i class="bi bi-building-up text-secondary"></i> Professional Journey</h2>
+    <div class="d-flex flex-wrap <%- experience.length >= 3 ? " justify-content-around"
+        : "justify-content-start gap-5 ms-5" %>
+        mt-3">
+        <% for(exp of experience.slice(-3).reverse()){%>
+            <div class="card-bg col-lg-3 col-md-4 px-2 py-3 rounded w-full">
+                <div class="card-head">
+                    <h5 class="text-center">
                         <%= exp.company%>
-                    </h4>
-                    <p><b>( <%= (()=> {
+                    </h5>
+                </div>
+                <hr>
+                <div class="card-body text-center">
+                    <div class="">
+                        <img src="<%= exp.profile ? " text"
+                            : "https://plus.unsplash.com/premium_photo-1739178656557-16b949fea186?q=80&w=1074&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                            %>"
+                        alt="" width="100px" height="100px" class="rounded-circle">
+                    </div>
+                    <p class="description">
+                        <%- exp.description.toString().length> 150
+                            ? exp.description.toString().substring(0, 100) + '...'
+                            : exp.description.toString() %>
+                    </p>
+                    <p class="teck-stack w-full">
+                        <b class="d-flex justify-content-center flex-wrap bg-warning py-1 text-dark rounded ">
+
+                            (
+                            <%= (()=> {
                                 const d = new Date(exp.DOJ);
-                                return String(d.getMonth()+1).padStart(2,"0") + "/" + d.getFullYear();
-                                })()%> - <%= (()=> {
+                                return String(d.getMonth()+1).padStart(2," 0") + "/" + d.getFullYear(); })()%> - <%=
+                                    (()=> {
                                     if(!exp.DOL){
                                     return "present"
                                     }
                                     const d = new Date(exp.DOL);
                                     return String(d.getMonth()+1).padStart(2,"0") + "/" + d.getFullYear();
-                                    })()%> )</b></p>
+                                    })()%> )
+                        </b>
+                    </p>
+                    <div class=" d-flex justify-content-center  gap-5">
+                        <a href="" class="btn button-bg-color">View details</a>
+                    </div>
                 </div>
-                <p>
-                    <%- exp.description%>
-                </p>
-            </li>
+            </div>
             <% }%>
-    </ul>
+    </div>
+    <!-- <%- exp.description%> -->
 </div>

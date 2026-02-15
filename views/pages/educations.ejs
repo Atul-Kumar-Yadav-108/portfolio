@@ -1,13 +1,31 @@
-<div class="eductions section px-3 py-3" id="education">
-    <h2 class="text-primary">Education</h2>
-    <ul class="row">
+<div class="eductions section px-3 py-3 border border-start-0 border-end-0" id="education">
+    <h2 class=""><i class="bi bi-mortarboard text-secondary"></i> Learning Journey</h2>
+    <div class="d-flex flex-wrap <%- education.length >= 3 ? " justify-content-around"
+        : "justify-content-start gap-5 ms-5" %> mt-3">
         <% for(edu of education.slice().reverse()){%>
-            <li class="col-md-6">
-                <div class="d-flex">
-                    <h6 class="me-5">
+            <div class="card-bg col-lg-3 col-md-4 px-2 py-3 rounded w-full">
+                <div class="card-head text-center">
+                    <h5 class="text-center ">
+                        <i class="bi bi-book text-secondary"></i>
+
                         <%= edu.course%>
-                    </h6>
-                    <h6>
+                    </h5>
+                    <span class="badge rounded-pill bg-primary text-center">CGPA/Grade : <%= edu.grade%></span>
+                </div>
+                <hr>
+                <div class="card-body text-center">
+                    <div class="">
+                        <img src="<%= edu.profile ? " text"
+                            : "https://plus.unsplash.com/premium_photo-1739178656557-16b949fea186?q=80&w=1074&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                            %>"
+                        alt="" width="100px" height="100px" class="rounded-circle">
+                    </div>
+                    <strong class="description">
+                        <i class="bi bi-building text-secondary"></i>
+                        <%= edu.insitute%>
+                    </strong>
+                    <p class="teck-stack w-full">
+                    <h6 class="d-flex justify-content-center flex-wrap bg-warning py-1 text-dark rounded ">
                         ( <%= (()=> {
                             const d = new Date(edu.from);
                             return String(d.getMonth()+1).padStart(2,"0") + "/" + d.getFullYear();
@@ -16,14 +34,13 @@
                                 return String(d.getMonth()+1).padStart(2,"0") + "/" + d.getFullYear();
                                 })()%>)
                     </h6>
+                    </p>
+
+                    <div class=" d-flex justify-content-center  gap-5">
+                        <a href="" class="btn button-bg-color">View details</a>
+                    </div>
                 </div>
-                <p>
-                    <%= edu.insitute%>
-                </p>
-                <p>
-                    CGPA/Grade : <%= edu.grade%>
-                </p>
-            </li>
+            </div>
             <% }%>
-    </ul>
+    </div>
 </div>

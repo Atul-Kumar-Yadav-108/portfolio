@@ -1,17 +1,25 @@
-<div class="image-intropart row" id="about">
+<div class="image-intropart row card-bg py-5 rounded-bottom" id="about">
     <div class="col-md-4 rounded-circle d-flex justify-content-center">
-        <img src="<%= result.profileimage.path %>" alt="" class="rounded-circle" width="250" height="250">
+        <img src="<%= result.profileimage.path %>" alt="" class="rounded shadow-lg" width="250" height="250">
     </div>
     <div class="col-md-8">
-        <h2 class="text-primary text-md-start text-center">
-            <%= position || '' %>
-        </h2>
+        <div class="d-flex align-items-center">
+            <h2 class="text-md-start text-center">
+                <%= position || '' %>
+            </h2><span class="badge rounded-pill bg-primary ">Open to work</span>
+        </div>
         <p>
             <%- introduction || '' %>
         </p>
-        <p class="text-primary d-flex flex-wrap">
+        <p class="d-flex flex-wrap bg-warning py-1 text-dark rounded justify-content-around fw-bold">
+
+            <span class="text-start text-primary">Verified Skills</span>
             <%- result.skillexpertise.languages%> , <%- result.skillexpertise.webtech%>
         </p>
+        <div class=" d-flex justify-content-center  gap-5">
+            <a href="/projects/" class="btn button-bg-color">View project</a>
+            <a href="/contact" class="btn button-bg-color">Hire me</a>
+        </div>
     </div>
 
 </div>

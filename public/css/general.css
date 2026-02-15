@@ -4,8 +4,8 @@
 
 .cursor-circle {
   position: fixed;
-  width: 20vw;
-  height: 20vw;
+  width: 10vw;
+  height: 10vw;
   max-width: 320px;
   max-height: 320px;
   border-radius: 50%;
@@ -68,19 +68,39 @@ div.dt-container select.dt-input {
 
 /* Default Light Mode */
 body {
-  background-color: #f8f7f7ff;
-  color: #000000;
-  transition: background-color 0.3s, color 0.3s;
+  background-color: #f8fafc;
+  color: #0f172a;
+  transition:
+    background-color 0.3s,
+    color 0.3s;
+}
+
+.light-seconday-color {
+  color: #94a3b8;
+}
+
+.card-bg {
+  background-color: #fefce8;
+  box-shadow: 0 0 5px 0 rgb(52, 52, 52);
 }
 
 /* Dark Mode */
 body.dark {
-  background-color: #121212;
-  color: #ffffff;
+  background-color: #0f172a;
+  color: #f1f5f9;
+}
+
+.dark-seconday-color {
+  color: #94a3b8;
 }
 
 body.dark.cursor-circle {
   mix-blend-mode: screen;
+}
+
+body.dark .card-bg {
+  background-color: #1e293b;
+  box-shadow: 0 0 5px 0 rgb(214, 214, 214);
 }
 
 .navbar-brand {
@@ -152,3 +172,25 @@ body.dark .navbar-toggler i {
 body.dark .navbar-toggler-icon {
   filter: invert(1);
 } */
+
+/* button  */
+
+.button-bg-color {
+  background-color: #7c3aed;
+  color: #fff;
+  transition: transform 0.2s ease;
+}
+
+.button-bg-color:hover {
+  background-color: #7c3aed;
+  color: #fff;
+  font-weight: bold;
+  transform: scaleX(0.95);
+}
+
+/* tech-stack  */
+
+.tech-bg-color {
+  background-color: #9175c2;
+  color: #fff;
+}

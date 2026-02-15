@@ -80,6 +80,11 @@
                                 <input id="tags" name="technologies" id="technologies" class="form-control"
                                     placeholder="Technologies">
                             </div>
+                            <div class="mb-3">
+                                <label for="technologies" class="form-label">Live URL</label>
+                                <input id="tags" name="liveUrl" id="liveUrl" class="form-control"
+                                    placeholder="Enter live url of project">
+                            </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -118,6 +123,11 @@
                                 <label for="edittechnologies" class="form-label">Technologies</label>
                                 <input id="edittags" name="technologies" class="form-control"
                                     placeholder="Technologies">
+                            </div>
+                            <div class="mb-3">
+                                <label for="editLiveUrl" class="form-label">Live Url</label>
+                                <input id="editLiveUrl" name="liveUrl" class="form-control"
+                                    placeholder="Enter live url of project">
                             </div>
                     </div>
                     <div class="modal-footer">
@@ -224,6 +234,7 @@
                 currentData = data; // 👉 Save data globally
                 $("#projectid").val(data._id);
                 $("#editprojectname").val(data.projectName);
+                $("#editLiveUrl").val(data.liveUrl);
                 // $("#editdescription").val(data.description);
                 quillEdit.root.innerHTML = data.description
 

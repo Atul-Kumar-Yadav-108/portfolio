@@ -2,14 +2,14 @@
     <% block('title', 'Home' ) %>
 
         <div class="mainContent">
-            <div class="content pt-5 px-3">
+            <div class="content pt-0 px-3">
                 <div class="position-fixed end-0 p-3" style="bottom: 75px;">
                     <a href="/generate-cv" class="btn btn-primary">Download CV<i class="fa-solid fa-download"></i></a>
                 </div>
                 <%- include("./introduction.ejs", { position: result.position, introduction : result.introduction }) %>
-                    <%- include("./experience.ejs", { experience: result.experience }) %>
-                        <%- include("./educations.ejs", { education: result.education })%>
-                            <%- include("./projects.ejs",{projects : result.projects}) %>
+                    <%- include("./projects.ejs",{projects : result.projects}) %>
+                        <%- include("./experience.ejs", { experience: result.experience }) %>
+                            <%- include("./educations.ejs", { education: result.education })%>
                                 <%- include("./certifications.ejs",{certification : result.certifications}) %>
                                     <%- include("./bottom.ejs") %>
             </div>
