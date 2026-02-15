@@ -11,11 +11,11 @@
 
 <div class="experience-section px-3 py-3 border border-start-0 border-end-0" id="experience">
     <h2 class=""><i class="bi bi-building-up text-secondary"></i> Professional Journey</h2>
-    <div class="d-flex flex-wrap <%- experience.length >= 3 ? " justify-content-around"
-        : "justify-content-start gap-5 ms-5" %>
-        mt-3">
+    <div class="row mt-3 <%- experience.lenght > 3 ? "" : " ms-md-5 gap-md-5" %>">
+
         <% for(exp of experience.slice(-3).reverse()){%>
-            <div class="card-bg col-lg-3 col-md-4 px-2 py-3 rounded w-full">
+            <div class="card-bg col-12 col-sm-6 col-md-4 col-lg-3 px-2 rounded mt-3">
+
                 <div class="card-head">
                     <h5 class="text-center">
                         <%= exp.company%>

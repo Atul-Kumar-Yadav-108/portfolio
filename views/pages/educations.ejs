@@ -1,9 +1,8 @@
 <div class="eductions section px-3 py-3 border border-start-0 border-end-0" id="education">
     <h2 class=""><i class="bi bi-mortarboard text-secondary"></i> Learning Journey</h2>
-    <div class="d-flex flex-wrap <%- education.length >= 3 ? " justify-content-around"
-        : "justify-content-start gap-5 ms-5" %> mt-3">
+    <div class="row <%- education.length >= 3 ? "" : " ms-md-5 gap-md-5" %>">
         <% for(edu of education.slice().reverse()){%>
-            <div class="card-bg col-lg-3 col-md-4 px-2 py-3 rounded w-full">
+            <div class="card-bg col-lg-3 col-md-4 px-2 py-3 rounded w-full mt-3">
                 <div class="card-head text-center">
                     <h5 class="text-center ">
                         <i class="bi bi-book text-secondary"></i>
